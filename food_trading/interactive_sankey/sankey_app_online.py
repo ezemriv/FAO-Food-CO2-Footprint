@@ -5,7 +5,10 @@ import plotly.graph_objects as go
 import pandas as pd
 
 # Load your data
-df = pd.read_csv('continent_trade_matrix.csv')
+df = pd.read_csv(r'.\data\continent_trade_matrix.csv')
+#Drop antarctica
+df = df[df['target']!= 'antarctica']
+df = df[df['source']!= 'antarctica']
 
 # Define colors for targets
 target_colors = {
@@ -15,7 +18,6 @@ target_colors = {
     'north america': '#fffacd', # Lemon Chiffon
     'oceania': '#ffcccb',       # Light Coral
     'south america': '#e6e6fa',
-    'antarctica': '#cccccc'  # Lavender
 }
 
 # Initialize the Dash app
