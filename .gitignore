@@ -1,5 +1,5 @@
 \data
-food_trading\interactive_sankey\data
+food_trading\viz\data
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

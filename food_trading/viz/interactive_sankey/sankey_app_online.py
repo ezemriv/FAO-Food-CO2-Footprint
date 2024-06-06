@@ -5,7 +5,7 @@ import plotly.graph_objects as go
 import pandas as pd
 
 # Load your data
-df = pd.read_csv(r'.\data\continent_trade_matrix.csv')
+df = pd.read_csv(r'..\data\continent_trade_matrix_CO2eq.csv')
 #Drop antarctica
 df = df[df['target']!= 'antarctica']
 df = df[df['source']!= 'antarctica']
@@ -68,7 +68,7 @@ def update_sankey(selected_year):
 
     # Create the figure
     fig = go.Figure(data=[sankey_data])
-    fig.update_layout(title_text=f'Food Trade between Continents in {selected_year}', font_size=10)
+    fig.update_layout(title_text=f'Kg of CO2eq Produced by Food Trade between Continents in {selected_year}', font_size=12)
 
     return fig
 
