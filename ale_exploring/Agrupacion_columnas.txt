@@ -1,0 +1,115 @@
+    'Area', 
+    'Year', 
+    'Area Code',
+    'Population_-_Est._&_Proj._Total_Population_-_Both_sexes_1000_No',
+    'Country_area_Area_1000_ha',
+
+    'Total_Energy_Energy_use_in_agriculture_TJ',
+
+
+
+
+    'Land_Use_change_Emissions_(CO2eq)_(AR5)_kt',
+
+
+Total_Fires_Emissions_CO2_kt <<- Emisiones totales de los incendios, en diferentes tipos de ecosistemas.  
+    'Fires_in_humid_tropical_forests_Emissions_(CO2eq)_(AR5)_kt',
+    'Fires_in_organic_soils_Emissions_(CO2eq)_(AR5)_kt',
+    'Forest_fires_Emissions_(CO2eq)_(AR5)_kt',
+    'Burning_-_Crop_residues_Emissions_(CO2eq)_(AR5)_kt',
+    'Savanna_fires_Emissions_(CO2eq)_(AR5)_kt',
+
+    'Net_Forest_conversion_Area_1000_ha',
+    'Net_Forest_conversion_Net_emissions/removals_(CO2)_(Forest_land)_kt',
+    'Net_Forest_conversion_Emissions_(CO2eq)_(AR5)_kt',
+
+Total_Waste_Emissions_CO2_kt <<- Emisiones totales de los desperdios.
+    'Agrifood_Systems_Waste_Disposal_Emissions_(CO2eq)_(AR5)_kt',
+    'Solid_Food_Waste_Emissions_(CO2eq)_(AR5)_kt',
+    'Waste_Emissions_(CO2eq)_(AR5)_kt',
+
+Total_Fertilizers_Emissions_CO2_kt <<- Emisiones totales de la produccion de fertilizantes y pesticidas
+    'Fertilizers_Manufacturing_Emissions_(CO2eq)_(AR5)_kt',
+    'Pesticides_Manufacturing_Emissions_(CO2eq)_(AR5)_kt',
+    'Synthetic_Fertilizers_Emissions_(CO2eq)_(AR5)_kt',
+
+FoodReatail_Total_Emissions_CO2_kt <<- Emisiones totales del food retail
+    'Food_Household_Consumption_Emissions_(CO2eq)_(AR5)_kt',
+    'Food_Packaging_Emissions_(CO2eq)_(AR5)_kt',
+    'Food_Processing_Emissions_(CO2eq)_(AR5)_kt',
+    'Food_Retail_Emissions_(CO2eq)_(AR5)_kt',
+    'Food_Transport_Emissions_(CO2eq)_(AR5)_kt',
+    'Pre-_and_Post-_Production_Emissions_(CO2eq)_(AR5)_kt',
+    'Energy_Use_(Pre-_and_Post-Production)_Emissions_(CO2eq)_(AR5)_kt',
+
+FoodReatail_Total_EnergyUse_TJ <<- Energy Use Total del food retail
+    'Food_Household_Consumption_Energy_Use_(Total)_TJ',
+    'Food_Packaging_Energy_Use_(Total)_TJ',
+    'Food_Processing_Energy_Use_(Total)_TJ',
+    'Food_Transport_Energy_Use_(Total)_TJ',
+    'Food_Retail_Energy_Use_(Total)_TJ',
+    'Pre-_and_Post-_Production_Energy_Use_(Total)_TJ',
+    'Energy_Use_(Pre-_and_Post-Production)_Energy_Use_(Total)_TJ',
+
+
+    'Manure_Management_Emissions_(CO2eq)_(AR5)_kt',
+    'Manure_applied_to_Soils_Emissions_(CO2eq)_(AR5)_kt',
+    'Manure_left_on_Pasture_Emissions_(CO2eq)_(AR5)_kt',
+    'Enteric_Fermentation_Emissions_(CO2eq)_(AR5)_kt',
+    'Farm_gate_Emissions_(CO2eq)_(AR5)_kt',
+
+  
+    'Gross_Domestic_Product_Annual_growth_US$_per_capita_%',
+    'Gross_Domestic_Product_Value_US$_million_USD',
+    'Gross_Domestic_Product_Value_US$_per_capita_USD'
+
+    'Crop_Residues_Emissions_(CO2eq)_(AR5)_kt',
+
+    'Rice_Cultivation_Emissions_(CO2eq)_(AR5)_kt',
+
+    'Agricultural_Soils_Emissions_(CO2eq)_(AR5)_kt',
+    'Agrifood_systems_Emissions_(CO2eq)_(AR5)_kt',
+
+
+    'Emissions_from_crops_Emissions_(CO2eq)_(AR5)_kt',
+    'Emissions_from_livestock_Emissions_(CO2eq)_(AR5)_kt',
+    'Emissions_on_agricultural_land_Emissions_(CO2eq)_(AR5)_kt',
+
+---------------- Comentadas (se documento una pregunta, no se tomaron acciones. tiny bam!) ----------------
+
+Bosques? <<- ver Nota_Forestland.txt
+    'Forestland_Area_1000_ha',
+    'Forestland_Net_emissions/removals_(CO2)_(Forest_land)_kt',
+    'Forestland_Emissions_(CO2eq)_(AR5)_kt',
+
+
+
+
+
+
+---------------- TOTALIZADAS (que se agruparon con una columna que las suma, depende el caso se mantienen o no las columnas originales) ----------------
+
+'Total_Energy_Emissions_CO2_kt', <<- agrupando las emisiones totales de los diferentes gases, convertidos a CO2.
+    'Total_Energy_Emissions_(CO2)_kt',
+    'Total_Energy_Emissions_(CH4_CO2eq)_kt',
+    'Total_Energy_Emissions_(N2O_CO2eq)_kt'
+
+
+'Total_Organic_Soils_Emissions_CO2eq_kt' <<- Emisiones totales de los diferentes tipos de suelos.
+    'Cropland_organic_soils_Emissions_(CO2)_kt',
+    'Cropland_organic_soils_Emissions_(N2O_CO2eq)_kt',
+    'Drained_organic_soils_Emissions_(CO2)_kt',
+    'Drained_organic_soils_Emissions_(N2O_CO2eq)_kt',
+    'Drained_organic_soils_Emissions_(CO2eq)_(AR5)_kt',
+    'Grassland_organic_soils_Emissions_(CO2)_kt',
+    'Grassland_organic_soils_Emissions_(N2O_CO2eq)_kt'
+
+"Total_Area_For_Crops_Production_ha"  <<-- revisar tema merge con el tipo de suelo para el arroz
+    'Cropland_organic_soils_Area_ha',
+    'Drained_organic_soils_Area_ha',
+    'Grassland_organic_soils_Area_ha',
+
+"Total_Net_stock_change_kt" <<- Ver nota de Total_Net_stock_change_kt
+    'Drained_organic_soils_Net_stock_change_(C)_kt',
+    'Cropland_organic_soils_Net_stock_change_(C)_kt',
+    'Grassland_organic_soils_Net_stock_change_(C)_kt',
