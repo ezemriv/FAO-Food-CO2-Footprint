@@ -19,3 +19,10 @@ dev_palette = {
     'Non-Annex I countries': '#d62728', # Red
     'Annex I countries': '#2ca02c'   # Green
 }
+
+### Scale palette: Para pintar escala de valores.
+
+magma_palette = sns.color_palette("magma", as_cmap=True)
+magma_palette_reversed = sns.color_palette("magma_r", n_colors=256) #a veces es necesario revertirla
+magma_palette_reversed = sns.color_palette("magma_r", as_cmap=True)
+
