@@ -8,13 +8,15 @@ import numpy as np
 import pandas as pd
 import seaborn as sns
 from matplotlib import pyplot as plt
-from mlforecast import MLForecast
 
-from numba import njit
-from scipy import stats
-from sklearn.metrics import mean_squared_error, r2_score
-from sklearn.preprocessing import MinMaxScaler, RobustScaler
-from sklearn.linear_model import LinearRegression
+from sklearn.preprocessing import MinMaxScaler
+
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+from sklearn.metrics import mean_absolute_percentage_error
+from sklearn.preprocessing import MinMaxScaler
 
 class MLForecast_Evaluator:
     def __init__(self, fcst, valid, future_df, h=1):
@@ -22,10 +24,10 @@ class MLForecast_Evaluator:
         self.valid = valid
         self.future_df = future_df
         self.h = h
-        self.mean_rmse_valid = None # To use for filename (mean rmse of all models)
+        self.mean_mape_valid = None  # To use for filename (mean rmse of all models)
         
         # Generate predictions
-        self.predictions = fcst.predict(h=self.h, X_df=future_df, level=0.95)
+        self.predictions = fcst.predict(h=self.h, X_df=future_df)
         # Replace negative predictions with 0
         numeric_cols = self.predictions.select_dtypes(include=[np.number])
         numeric_cols[numeric_cols < 0] = 0
@@ -39,18 +41,28 @@ class MLForecast_Evaluator:
         
         # Identify model columns
         self.model_columns = list(fcst.models.keys())
-        
-    def plot_time_series(self, n_samples: int = 4, figsize: tuple = None, random_state: Optional[int] = None):
+
+    def plot_time_series(self, n_samples: Optional[int] = None, figsize: tuple = None, random_state: Optional[int] = None):
         """
-        Plots the time series for a random sample of unique_ids.
+        Plots the time series for a random sample of unique_ids or all if n_samples is not passed.
         
         Parameters
         ----------
         """
         
+        # Define a color map for models
+        colors = plt.cm.Set1(np.linspace(0, 1, len(self.model_columns)))
+        color_map = dict(zip(self.model_columns, colors))
+
         # Sample random unique_ids
         unique_ids = self.train_preds['unique_id'].unique()
-        sampled_ids = np.random.choice(unique_ids, size=min(n_samples, len(unique_ids)), replace=False)
+        
+        if n_samples is None:
+            sampled_ids = unique_ids
+        else:
+            sampled_ids = np.random.choice(unique_ids, size=min(n_samples, len(unique_ids)), replace=False)
+        
+        n_samples = len(sampled_ids)
         
         # Calculate grid dimensions
         n_cols = math.ceil(math.sqrt(n_samples))
@@ -62,7 +74,7 @@ class MLForecast_Evaluator:
         
         # Create subplots
         fig, axs = plt.subplots(n_rows, n_cols, figsize=figsize)
-        fig.suptitle('Time Series Visualization', fontsize=16)
+        fig.suptitle('Time Series Predictions on Train/Valid Data', fontsize=16)
 
         axs = axs.flatten() if n_samples > 1 else [axs]
 
@@ -80,25 +92,27 @@ class MLForecast_Evaluator:
                 labels.append('Actual (Train)')
 
             for model in self.model_columns:
-                h_model_train, = axs[i].plot(train_data['ds'], train_data[model], label=f'{model} (Train)')
+                # Model predictions on train data (dashed line)
+                h_model_train, = axs[i].plot(train_data['ds'], train_data[model], label=f'{model} (Train)', color=color_map[model])
                 if f'{model} (Train)' not in labels:
                     handles.append(h_model_train)
                     labels.append(f'{model} (Train)')
             
             # Plot valid data
-            h_valid, = axs[i].plot(valid_data['ds'], valid_data['y'], label='Actual (Valid)', color='red', linestyle='--')
+            h_valid, = axs[i].plot(valid_data['ds'], valid_data['y'], label='Actual (Valid)', color='black', linestyle='--')
             if 'Actual (Valid)' not in labels:
                 handles.append(h_valid)
                 labels.append('Actual (Valid)')
 
             for model in self.model_columns:
-                h_model_valid = axs[i].scatter(valid_data['ds'], valid_data[model], label=f'{model} (Valid)')
+                # Model predictions on valid data (solid line)
+                h_model_valid, = axs[i].plot(valid_data['ds'], valid_data[model], label=f'{model} (Valid)', linestyle='--', color=color_map[model])
                 if f'{model} (Valid)' not in labels:
                     handles.append(h_model_valid)
                     labels.append(f'{model} (Valid)')
 
-            axs[i].set_title(f'Time Series - ID: {unique_id}')
-            axs[i].set_xlabel('Date')
+            axs[i].set_title(f'Region: {unique_id}')
+            axs[i].set_xlabel('Year')
             axs[i].set_ylabel('Value')
         
         # Remove any unused subplots
@@ -119,24 +133,24 @@ class MLForecast_Evaluator:
                 y_true = result_df['y']
                 y_pred = result_df[model]
 
-                model_metrics[f'RMSE_{name}'] = np.sqrt(mean_squared_error(y_true, y_pred))
-                model_metrics[f'R2_{name}'] = r2_score(y_true, y_pred)
+                model_metrics[f'MAPE_{name}'] = mean_absolute_percentage_error(y_true, y_pred)
 
             metrics[model] = model_metrics
 
         metrics_df = pd.DataFrame(metrics).T
 
-        # Find the model with the lowest validation RMSE
-        lowest_rmse_model = metrics_df['RMSE_valid'].idxmin()
-        lowest_rmse_value = metrics_df.loc[lowest_rmse_model, 'RMSE_valid']
+        # Find the model with the lowest validation MAPE
+        lowest_mape_model = metrics_df['MAPE_valid'].idxmin()
+        lowest_mape_value = metrics_df.loc[lowest_mape_model, 'MAPE_valid']
         
-        self.mean_rmse_valid = metrics_df['RMSE_valid'].mean()  # Calculate and store mean RMSE for submission
+        self.mean_mape_valid = metrics_df['MAPE_valid'].mean()  # Calculate and store mean MAPE for submission
 
-        print(f"MEAN RMSE_VALID = {self.mean_rmse_valid}\n")
-        print(f"Model with lowest RMSE validation is {lowest_rmse_model} with RMSE = {lowest_rmse_value}\n")
-        print(metrics_df.sort_values(by='RMSE_valid'))
+        print(f"MEAN MAPE_VALID = {self.mean_mape_valid*100:.2f}%\n")
+        print(f"Model with lowest MAPE validation is {lowest_mape_model} with MAPE = {lowest_mape_value*100:.2f}%\n")
 
-        return metrics_df.sort_values(by='RMSE_valid')
+        print(metrics_df.sort_values(by='MAPE_valid'))
+
+        return metrics_df.sort_values(by='MAPE_valid')
     
     def plot_feature_importances(self):
         # Initialize an empty DataFrame to store the feature importances
@@ -164,13 +178,13 @@ class MLForecast_Evaluator:
 
         # Sort features by their average importance
         average_importance = df_scaled.mean(axis=1)
-        sorted_features = average_importance.sort_values(ascending=True).index[-50:]
+        sorted_features = average_importance.sort_values(ascending=True).index[-20:]
 
         # Reorder DataFrame according to the sorted feature list
         df_scaled = df_scaled.loc[sorted_features]
 
         # Plotting the horizontal multi-bar plot
-        fig, ax = plt.subplots(figsize=(10, 15))
+        fig, ax = plt.subplots(figsize=(8, 6))
 
         # Define the height of the bars and the positions for each group
         bar_height = 0.15
@@ -183,7 +197,7 @@ class MLForecast_Evaluator:
         # Add labels, title, and legend
         ax.set_ylabel('Feature')
         ax.set_xlabel('Scaled Importance')
-        ax.set_title('Scaled Feature Importances by Model')
+        ax.set_title('Top 20 Scaled Feature Importances by Model')
         ax.set_yticks(index + bar_height * (len(self.model_columns) - 1) / 2)
         ax.set_yticklabels(sorted_features)
         ax.legend()
@@ -191,97 +205,6 @@ class MLForecast_Evaluator:
         plt.tight_layout()
         plt.show()
 
-
-    def plot_metrics(self):
-        
-        # Create a figure with two subplots side by side
-        fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(20, 8))
-
-        # Plot 1: Scatter plot of predicted vs actual values
-        for model in self.model_columns:
-            # Scatter plot
-            sns.scatterplot(x=self.results[model], y=self.results['y'], label=model, ax=ax1, alpha=0.7)
-            
-            # Fit line
-            X = self.results[model].values.reshape(-1, 1)
-            y = self.results['y'].values
-            reg = LinearRegression().fit(X, y)
-            ax1.plot(X, reg.predict(X))
-
-        # Plot the perfect prediction line
-        min_val = min(self.results['y'].min(), self.results[self.model_columns].min().min())
-        max_val = max(self.results['y'].max(), self.results[self.model_columns].max().max())
-        ax1.plot([min_val, max_val], [min_val, max_val], 'k--', label='Perfect prediction')
-
-        ax1.set_xlabel('Predicted Value')
-        ax1.set_ylabel('Actual Value')
-        ax1.set_title('Validation Set: Predicted vs Actual')
-        ax1.legend(title='Model')
-
-        # Plot 2: Distribution of Residuals
-        scaler = RobustScaler()  # RobustScaler is less sensitive to outliers
-        palette = sns.color_palette(n_colors=len(self.model_columns))
-        
-        for i, model in enumerate(self.model_columns):
-            # Calculate residuals
-            residuals = self.results['y'] - self.results[model]
-            
-            # Remove infinite values and extreme outliers
-            mask = np.isfinite(residuals) & (np.abs(residuals) < np.percentile(np.abs(residuals), 99))
-            clean_residuals = residuals[mask]
-            
-            if len(clean_residuals) > 0:
-                # Scale the residuals
-                residuals_scaled = scaler.fit_transform(clean_residuals.values.reshape(-1, 1)).flatten()
-                
-                # Plot KDE with increased bandwidth
-                #sns.kdeplot(residuals_scaled, label=model, ax=ax2, bw_adjust=1.5, color=palette[i])
-                sns.histplot(residuals_scaled, bins=30, label=model, kde=False, color=palette[i], alpha=0.5, ax=ax2)
-                
-                # Add rug plot
-                #sns.rugplot(residuals_scaled, ax=ax2, color=palette[i], alpha=0.7)
-            else:
-                print(f"Warning: No valid residuals for model {model}")
-
-        ax2.set_title('Distribution of Scaled Residuals')
-        ax2.set_xlabel('Scaled Residual')
-        ax2.set_ylabel('Density')
-        ax2.legend(title='Model', fontsize=16) #change legend size
-        
-        # Set x-axis limits for better visibility
-        ax2.set_xlim(-5, 5)
-
-        plt.tight_layout()
-        plt.show()
-
-
-    def predict_save_submission(self, model_name, test_index):
-        
-        if model_name not in self.model_columns:
-            raise ValueError(f"Model '{model_name}' not found. Available models are: {', '.join(self.model_columns)}")
-
-        test_preds = self.predictions[self.predictions['ds'].isin(test_index)] #Test index was defined in split
-        test_preds = test_preds[['unique_id', model_name]]
-        
-        # Rename the model column to 'monthly_sales'
-        test_preds.rename(columns={model_name: 'monthly_sales'}, inplace=True)
-
-        # Get today's date for the filename
-        today = date.today()
-
-        if self.mean_rmse_valid is None:
-            print("Warning: mean_rmse_valid has not been calculated yet. Using 'unknown' in filename.")
-            mean_rmse_str = "unknown"
-        else:
-            mean_rmse_str = f"{self.mean_rmse_valid:.4f}"  # Format to 4 decimal places
-
-        output_filename = f"submissions\{today}_submission_{model_name}_mean_valid_RMSE_{mean_rmse_str}.csv"
-        test_preds.to_csv(output_filename, index=False)
-
-        print(f"Submission file '{output_filename}' has been created successfully.")
-
-        return test_preds
-    
 
 #----------------------------------------------------------------------------#
 
