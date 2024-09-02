@@ -2,6 +2,8 @@ import math
 import random
 from datetime import date
 from typing import List, Optional
+import os
+import zipfile
 
 import matplotlib.pyplot as plt
 import numpy as np
@@ -239,3 +241,39 @@ def query_country(df, unique_id=None, target_col=None):
             return query_df
 
     return query_df
+
+#----------------------------------------------------------------------------#
+
+def load_fao_table(table_number, path):
+    
+    # Loop through all files in the directory
+    for filename in os.listdir(path):
+        # Extract the number from the start of the filename
+        file_number_str = filename.split('-')[0]
+        try:
+            file_number = int(file_number_str)
+            # Check if the number matches the table number
+            if file_number == table_number:
+                full_path = os.path.join(path, filename)
+
+                if filename.endswith(".zip"):
+                    # Open the zip file
+                    with zipfile.ZipFile(full_path, 'r') as zip_ref:
+                        # Iterate through the file names in the zip archive
+                        for file_name in zip_ref.namelist():
+                            # Check if the file name contains the pattern "All_Data_" and ends with .csv
+                            if "All_Data" in file_name and file_name.endswith(".csv"):
+                                # Read the CSV file into a DataFrame
+                                with zip_ref.open(file_name) as file:
+                                    return pd.read_csv(file, encoding="ISO-8859-1")
+
+                elif filename.endswith(".csv"):
+                    # Read the CSV file into a DataFrame
+                    return pd.read_csv(full_path, encoding="ISO-8859-1")
+
+        except ValueError:
+            # Handle the case where the filename doesn't start with a valid number
+            continue
+    
+    # Return None if no matching file is found
+    return None
