@@ -1,7 +1,9 @@
+/data
 \data
+food_trading/viz/data
 food_trading\viz\data
+/plots
 \plots
-\plots\
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
