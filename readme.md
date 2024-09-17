@@ -56,6 +56,11 @@ A connections map of soya trading highlights that the majority of these trade fl
     <a href="https://plotly.com/~ezemriv/18/" target="_blank">View Interactive Version on Plotly</a>
 </p>
 
+### Food Production Emissions
+
+
+# Appendix
+
 ## FAO Data
 
 The FAO dataset utilized in this project is one of the most extensive sources of global agricultural and food-related data. Key aspects include:
