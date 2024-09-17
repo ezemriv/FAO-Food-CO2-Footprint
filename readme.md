@@ -31,9 +31,30 @@ The objective of this project is to analyze the carbon footprint associated with
 
 ## Key Findings and Insights
 
-### Food Trading Emissions Over the Years
+### Food Trading Emissions
 
+The analysis of food trading emissions over the years reveals several key patterns. Asia and Europe stand out as the largest importers, while North America and South America are the leading exporters. The trade flow generating the most emissions is between North America and Asia, underscoring the environmental cost of long-distance trade between these continents. However, imports into Europe from various regions around the world cumulatively contribute the most to global food transportation emissions, making Europe a major player in global food-related CO2 emissions.
 
+<p align="center">
+    <b>2022 Food Trading Associated Emissions Between Continents</b>
+</p>
+<p align="center">
+    <img src="./readme_img/sankey.png" alt="Sankey Diagram of Food Trading Emissions" style="width: 50%;">
+    <br>
+    <a href="https://plotly.com/~ezemriv/7/" target="_blank">View Interactive 1986-2022 Version on Plotly</a>
+</p>
+
+A further analysis of food items' travel patterns shows that, overall, crops travel more extensively than livestock. Among them, **soya beans** stand out as the most transported food item according to the FAO data, generating **over 20,000 kilotonnes of CO2-equivalent GHG emissions per year**. This highlights the substantial environmental impact of transporting high-demand crops.
+
+A connections map of soya trading highlights that the majority of these trade flows are directed towards Europe, further emphasizing the continent's role in driving global food transport emissions.
+
+<p align="center">
+    <b>Soya Beans Top Contaminating Trades (2021)</b>
+<p align="center">
+    <img src="./readme_img/map_soya.png" alt="Soya Beans CO2 Emissions" style="width: 60%;">
+    <br>
+    <a href="https://plotly.com/~ezemriv/18/" target="_blank">View Interactive Version on Plotly</a>
+</p>
 
 ## FAO Data
 
