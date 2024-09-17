@@ -31,8 +31,11 @@ The objective of this project is to analyze the carbon footprint associated with
 
 ## Key Findings and Insights
 
+### Food Trading Emissions Over the Years
 
-## FAO Data Insights
+
+
+## FAO Data
 
 The FAO dataset utilized in this project is one of the most extensive sources of global agricultural and food-related data. Key aspects include:
 
@@ -109,3 +112,19 @@ For the analysis of regional and country-specific emissions, a total emissions t
     - `'Pre-_and_Post-_Production_Emissions_(CO2eq)_(AR5)_kt'`
   - **Total Column**:
     - `'Agrifood_systems_Emissions_(CO2eq)_(AR5)_kt'`
+
+## Practical Application: Web App for Food Origin and Environmental Impact Estimation
+
+A practical application of this analysis is demonstrated in a Dockerized Flask web app, which predicts the origin of your food and estimates the environmental impact of its transportation based on the data analyzed in this repository.
+
+The app allows users to input their location and food item, providing insights into:
+- The probable country of origin for the food.
+- The CO2 emissions generated from its transportation.
+
+You can check out the web app and its repository here:
+
+<a href="https://fao-co2-food-travel-emissions.onrender.com/" target="_blank">
+    <img src="https://img.shields.io/badge/Go%20to%20App-blue" style="height: 20px; width: auto;">
+</a>  <a href="https://github.com/ezemriv/Food-CO2-app" target="_blank">
+    <img src="https://img.shields.io/badge/Go%20to%20Repo-black" style="height: 20px; width: auto;">
+</a>
