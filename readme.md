@@ -39,7 +39,7 @@ The analysis of food trading emissions over the years reveals several key patter
     <b>2022 Food Trading Associated Emissions Between Continents</b>
 </p>
 <p align="center">
-    <img src="./readme_img/sankey.png" alt="Sankey Diagram of Food Trading Emissions" style="width: 50%;">
+    <img src="./readme_img/sankey.png" alt="Sankey Diagram of Food Trading Emissions" style="width: 70%;">
     <br>
     <a href="https://plotly.com/~ezemriv/7/" target="_blank">View Interactive 1986-2022 Version on Plotly</a>
 </p>
@@ -51,7 +51,7 @@ A connections map of soya trading highlights that the majority of these trade fl
 <p align="center">
     <b>Soya Beans Top Contaminating Trades (2021)</b>
 <p align="center">
-    <img src="./readme_img/map_soya.png" alt="Soya Beans CO2 Emissions" style="width: 60%;">
+    <img src="./readme_img/map_soya.png" alt="Soya Beans CO2 Emissions" style="width: 70%;">
     <br>
     <a href="https://plotly.com/~ezemriv/18/" target="_blank">View Interactive Version on Plotly</a>
 </p>
