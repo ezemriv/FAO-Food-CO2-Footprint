@@ -8,15 +8,6 @@ This document provides a comprehensive report on a data analysis project focused
 
 The objective of this project is to analyze the carbon footprint associated with global food production and consumption. Utilizing data from the FAO, the project aims to uncover insights into food emissions patterns and predict future trends through advanced data science techniques.
 
-## FAO Data Insights
-
-The FAO dataset utilized in this project is one of the most extensive sources of global agricultural and food-related data. Key aspects include:
-
-- Coverage of over 245 countries and territories, providing a global perspective.
-- Data on more than 200 primary crops and livestock products, offering detailed insights into the agricultural sector.
-- Inclusion of production, trade, food balance sheets, and emissions data, enabling multifaceted analysis.
-- Historical depth extending back to 1961 for many indicators, supporting long-term trend analysis and robust forecasting.
-
 ## Project Overview
 
 - **Data Cleaning and Processing**: The dataset's size and historical scope presented significant challenges in ensuring consistency and completeness.
@@ -36,6 +27,19 @@ The FAO dataset utilized in this project is one of the most extensive sources of
 - **`02_food_emissions/`**: Contains files for analyzing food emissions data.
 - **`03_food_dataset_compiling/`**: Includes notebooks for compiling and preparing the food dataset.
 - **`04_country_emissions/`**: Contains files related to analyzing and classifying country emissions profiles.
+
+
+## Key Findings and Insights
+
+
+## FAO Data Insights
+
+The FAO dataset utilized in this project is one of the most extensive sources of global agricultural and food-related data. Key aspects include:
+
+- Coverage of over 245 countries and territories, providing a global perspective.
+- Data on more than 200 primary crops and livestock products, offering detailed insights into the agricultural sector.
+- Inclusion of production, trade, food balance sheets, and emissions data, enabling multifaceted analysis.
+- Historical depth extending back to 1961 for many indicators, supporting long-term trend analysis and robust forecasting.
 
 ## Data Preparation
 
