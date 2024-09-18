@@ -58,6 +58,45 @@ A connections map of soya trading highlights that the majority of these trade fl
 
 ### Food Production Emissions
 
+Even though crops are the leading contributors to travel emissions, the analysis of food production emissions tells a different story. Emissions from livestock food items far exceed those from crops, with livestock emissions increasing at a rate of 2771.76 kilotonnes per year, compared to 408.02 kilotonnes per year for crops. Overall, livestock emissions are up to seven times higher than crop emissions. A boxplot of production emissions (log scale) illustrates that cattle products and their derivatives are the highest emitters, followed by rice, with both showing at least one order of magnitude higher emissions than other items within their respective food groups.
+
+<p align="center">
+    <b>Crops vs Livestock Production Emissions (2021)</b>
+<p align="center">
+    <img src="./readme_img/items.png" alt="Food items CO2 Emissions" style="width: 60%;">
+</p>
+
+To further understand the stark difference in emissions between cattle and chickens, I created two treemaps. The **left treemap** compares their respective emission components. The entire treemap represents the total summed emissions from cattle and chicken, with each section showing the proportional emissions contribution of each feature for these food items. It is clear that more than 90% of the total emissions stem from just two components of cattle emissions: **enteric fermentation (CH4)** and **pasture (N2O)**. Enteric fermentation in cattle produces large amounts of methane, a potent greenhouse gas, as part of their digestive process. Meanwhile, pasture management releases significant amounts of nitrous oxide due to manure left on the soil, contributing to N2O emissions. These biological processes in cattle production drive their much higher emissions compared to other livestock.
+
+In the **right treemap**, I compare rice and wheat emissions. Over 85% of the combined emissions of the two are tied to the **rice cultivation** feature, which involves the inundation of rice fields, promoting methane emissions by anaerobic bacteria.
+
+<p align="center">
+    <img src="./readme_img/treemaps.png" alt="Food items CO2 Emissions" style="width: 100%;">
+</p>
+
+### Country Emissions
+
+<p align="center">
+    <b>Forecasted Agrifood Emissions by Region</b>
+<p align="center">
+    <img src="./readme_img/forecast.png" alt="forecast" style="width: 100%;">
+</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 # Appendix
 
