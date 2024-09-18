@@ -1,6 +1,6 @@
 <img src="https://img.shields.io/badge/Python-white?logo=Python" style="height: 25px; width: auto;">  <img src="https://img.shields.io/badge/pandas-white?logo=pandas&logoColor=250458" style="height: 25px; width: auto;">  <img src="https://img.shields.io/badge/NumPy-white?logo=numpy&logoColor=013243" style="height: 25px; width: auto;">  <img src="https://img.shields.io/badge/Geopandas-white?logo=geopandas" style="height: 25px; width: auto;">  <img src="https://img.shields.io/badge/Plotly-white?logo=plotly&logoColor=636efa" style="height: 25px; width: auto;">  <img src="https://img.shields.io/badge/Seaborn-white?logo=python" style="height: 25px; width: auto;">  <img src="https://img.shields.io/badge/MLforecast-white?logo=python" style="height: 25px; width: auto;">  <img src="https://img.shields.io/badge/Scikit--learn-white?logo=scikit-learn" style="height: 25px; width: auto;">
 
-# Food Carbon Footprint Analysis
+# Global Food Carbon Footprint Analysis - FAO
 
 This document provides a comprehensive report on a data analysis project focused on the carbon footprint of food production and consumption. It covers the project's scope, methods, and findings, with an emphasis on data insights from the Food and Agriculture Organization (FAO) and various analytical approaches used.
 
@@ -31,7 +31,7 @@ The objective of this project is to analyze the carbon footprint associated with
 
 ## Key Findings and Insights
 
-### Food Trading Emissions
+### Global Food Miles: The Hidden Cost of International Cuisine
 
 The analysis of food trading emissions over the years reveals several key patterns. Asia and Europe stand out as the largest importers, while North America and South America are the leading exporters. The trade flow generating the most emissions is between North America and Asia, underscoring the environmental cost of long-distance trade between these continents. However, imports into Europe from various regions around the world cumulatively contribute the most to global food transportation emissions, making Europe a major player in global food-related CO2 emissions.
 
@@ -56,14 +56,14 @@ A connections map of soya trading highlights that the majority of these trade fl
     <a href="https://plotly.com/~ezemriv/18/" target="_blank">View Interactive Version on Plotly</a>
 </p>
 
-### Food Production Emissions
+### From Farm to Atmosphere: Food Production CO2 Emissions
 
 Even though crops are the leading contributors to travel emissions, the analysis of food production emissions tells a different story. Emissions from livestock food items far exceed those from crops, with livestock emissions increasing at a rate of 2771.76 kilotonnes per year, compared to 408.02 kilotonnes per year for crops. Overall, livestock emissions are up to seven times higher than crop emissions. A boxplot of production emissions (log scale) illustrates that cattle products and their derivatives are the highest emitters, followed by rice, with both showing at least one order of magnitude higher emissions than other items within their respective food groups.
 
 <p align="center">
     <b>Crops vs Livestock Production Emissions (2021)</b>
 <p align="center">
-    <img src="./readme_img/items.png" alt="Food items CO2 Emissions" style="width: 60%;">
+    <img src="./readme_img/items.png" alt="Food items CO2 Emissions" style="width: 55%;">
 </p>
 
 To further understand the stark difference in emissions between cattle and chickens, I created two treemaps. The **left treemap** compares their respective emission components. The entire treemap represents the total summed emissions from cattle and chicken, with each section showing the proportional emissions contribution of each feature for these food items. It is clear that more than 90% of the total emissions stem from just two components of cattle emissions: **enteric fermentation (CH4)** and **pasture (N2O)**. Enteric fermentation in cattle produces large amounts of methane, a potent greenhouse gas, as part of their digestive process. Meanwhile, pasture management releases significant amounts of nitrous oxide due to manure left on the soil, contributing to N2O emissions. These biological processes in cattle production drive their much higher emissions compared to other livestock.
@@ -74,7 +74,19 @@ In the **right treemap**, I compare rice and wheat emissions. Over 85% of the co
     <img src="./readme_img/treemaps.png" alt="Food items CO2 Emissions" style="width: 100%;">
 </p>
 
-### Country Emissions
+### Beyond Animal vs. Plant: FAO Food Items Classification
+
+The hierarchical clustering analysis reveals that food items group into four distinct clusters, with surprising overlaps between crops and livestock. **Cluster 1**, featuring soybeans, wheat, and maize, stands out with high food miles, export quantities, and transport emissions, indicating these crops are shipped long distances. **Cluster 4**, including cattle and rice, shows the highest production-related CO2 emissions, highlighting the significant environmental impact of these food items. Conversely, crops and animals in **Clusters 2 and 3** display relatively lower environmental impacts. This clustering highlights the complex interplay between food production, trade, and environmental impact. For a detailed view, refer to the heatmap below.
+
+<p align="center">
+    <b>Clustermap of Food Items with Environmental and Production Data</b>
+<p align="center">
+    <img src="./readme_img/clustermap.png" alt="forecast" style="width: 80%;">
+</p>
+
+### Forecasting the Global Appetite for Emissions
+
+The world's agrifood systems have been leaving an increasingly heavy mark on our climate. My analysis shows that over the past two decades, global emissions from food production and distribution have surged by more than 10%, reaching a staggering **16.4 gigatons of CO2** in 2021. Recent years have seen this trend accelerate, with annual increases of 1.5% (excluding the anomalous COVID-19 period). While **farm gate emissions**, **land use change**, and **pre/post-production activities** all contribute to this total, it is the latter category that is driving the upward trend. A continental breakdown reveals **Asia** as the primary emitter due to intense farm gate and post-production activities. Looking ahead, the forecast through 2030 indicates continued growth globally, with Asia, Africa, and Europe being the primary drivers of this trend. This projection underscores the urgent need for targeted interventions in food systems to mitigate their climate impact.
 
 <p align="center">
     <b>Forecasted Agrifood Emissions by Region</b>
@@ -82,21 +94,32 @@ In the **right treemap**, I compare rice and wheat emissions. Over 85% of the co
     <img src="./readme_img/forecast.png" alt="forecast" style="width: 100%;">
 </p>
 
+### Identifying the Culprits: A Carbon Based Country Classification
 
+Evaluating total agrifood systems emissions per country highlights key contributors such as **China**, **the United States**, and **Brazil**. The k-means clustering analysis, focusing on emissions patterns from various components, identified six main clusters using the following features:
 
+- **Farm Gate Emissions (CO2eq)**
+- **Land Use Change Emissions (CO2eq)**
+- **Pre and Post Production Emissions (CO2eq)**
+- **Emissions from Crops (CO2eq)**
+- **Emissions from Livestock (CO2eq)**
 
+The clusters identified are:
 
+- **Cluster 1: The Giant** – This cluster consists solely of **China**, due to its exceptionally high emissions across all components, setting it apart in scale.
+- **Cluster 2: Major Emitters** – **The United States** and **India** fall into this cluster, showing high emissions across all components, though at lower levels than China.
+- **Cluster 3: Deforestation Hotspots** – **Brazil**, **Congo**, and **Indonesia** are notable for high emissions from land use change, reflecting significant deforestation.
+- **Cluster 4: Emerging Deforestation Frontiers** – Countries like **Bolivia**, **Peru**, and **Mozambique** show high emissions from land use change and are geographically close to those in Cluster 3.
+- **Cluster 5: Big Agricultural Producers** – **Argentina**, **Australia**, and **Russia** are prominent for high farm-gate emissions, particularly from livestock production.
+- **Cluster 6: Small and Medium Producers and Importers** – **Spain**, **Chile**, and **Portugal** are among the more than 100 countries in this cluster, which, while having lower emissions compared to others, still play a role in global emissions, often as importers of food products from countries in other clusters.
 
+These clusters illustrate different aspects of emissions profiles and their implications for global agrifood systems.
 
-
-
-
-
-
-
-
-
-
+<p align="center">
+    <b>Map of Country Clusters (2021 data)</b>
+<p align="center">
+    <img src="./readme_img/map_clusters.png" alt="forecast" style="width: 80%;">
+</p>
 
 # Appendix
 
